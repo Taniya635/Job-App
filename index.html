@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link rel="stylesheet" href="index.css" />
+    <style>
+      #submit{
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="links">
+      <div><a href="index.html">Home</a></div>
+      <div><a href="applied.html">Applied Jobs</a></div>
+      <div><a href="bookmark.html">Bookmarks</a></div>
+    </div>
+    <form action="" id="form">
+      <h2>Enter Your Application Details</h2>
+      <input placeholder="Enter Name" id="name" name="name" type="text" />
+      <input placeholder="Enter email" type="email" name="email" id="email" />
+      <select name="role" id="role">
+        <option value="FSD">FSD</option>
+        <option value="Backend">Backend</option>
+        <option value="Frontend">Frontend</option>
+      </select>
+      <input id="salary"
+        type="number"
+        placeholder="Enter expected salary in lakhs per annum "
+      />
+      <input id="submit" type="submit" name="submit" value="Submit" />
+    </form>
+  </body>
+  <script>
+    //you need to code here
+    let form=document.getElementById("form")
+    form.addEventListener("submit",(e)=>{
+      e.preventDefault();
+      let obj={
+        name:form.name.value,
+        email:form.email.value,
+        role:form.role.value,
+        salary:form.salary.value,
+      }
+      console.log(obj);
+      let data=JSON.parse(localStorage.getItem("joblist"));
+      if(data==null){
+        data=[];
+      }
+      if(obj.name=="" || obj.email=="" || obj.role==""){
+        alert("Fill the required details")
+      }else{
+        data.push(obj);
+        alert("Applied for this Job")
+        window.location="applied.html"
+        localStorage.setItem("joblist",JSON.stringify(data));
+      }
+      
+    })
+    
+  </script>
+</html>

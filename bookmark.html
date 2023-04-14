@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admitted</title>
+    <link rel="stylesheet" href="commonStyles.css" />
+    <style>
+      .remove{
+        cursor: pointer;
+        background-color: #EB8A90;
+        text-align: center;
+
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="links">
+      <div><a href="index.html">Home</a></div>
+      <div><a href="applied.html">Applied Jobs</a></div>
+      <div><a href="bookmark.html">Bookmarks</a></div>
+    </div>
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Job Applied</th>
+            <th>Remove from Bookmark</th>
+          </tr>
+        </thead>
+        <tbody id="body"></tbody>
+      </table>
+    </main>
+  </body>
+  <script>
+    //you need to code here
+    let data=JSON.parse(localStorage.getItem("bookmark"));
+    let tbody=document.querySelector("tbody");
+    if(data==null){
+      data=[];
+    }
+    data.forEach((element,index) => {
+      let tr=document.createElement("tr");
+      let td1=document.createElement("td");
+      td1.innerText=element.name;
+      let td2=document.createElement("td");
+      td2.innerText=element.email
+      let td3=document.createElement("td");
+      td3.innerText=element.role;
+      let td4=document.createElement('td')
+      td4.innerText='Remove'
+      td4.classList='remove'
+      td4.addEventListener("click",()=>{
+        tr.remove()
+      })
+      let mark=JSON.parse(localStorage.getItem("mark"));
+        if(mark==null){
+          mark=[];
+          
+        }
+        mark.push(element);
+        localStorage.setItem("mark",JSON.stringify(mark));
+    
+      tr.append(td1,td2,td3,td4);
+      tbody.append(tr);
+    });
+  </script>
+</html>

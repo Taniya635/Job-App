@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Database</title>
+    <link rel="stylesheet" href="commonStyles.css" />
+    <style>
+      .bookmark{
+        cursor: pointer;
+        background-color: #EB8A90;
+        text-align: center;
+      }
+      .delete{
+        cursor: pointer;
+        background-color: #EB8A90;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="links">
+      <div><a href="index.html">Home</a></div>
+      <div><a href="applied.html">Applied Jobs</a></div>
+      <div><a href="bookmark.html">Bookmarks</a></div>
+    </div>
+
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Job applied</th>
+            <th>Salary expected</th>
+            <th>Add to bookmark</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody id="body">
+          <!-- Append your output to tbody -->
+        </tbody>
+      </table>
+    </main>
+  </body>
+  <script>
+    //you need to code here
+    let data=JSON.parse(localStorage.getItem("joblist"));
+    let tbody=document.querySelector("tbody");
+    if(data==null){
+      data=[];
+    }
+    data.forEach((element,index) => {
+      let tr = document.createElement("tr");
+      let td1=document.createElement("td");
+      td1.innerText=element.name;
+      let td2=document.createElement("td");
+      td2.innerText=element.email;
+      let td3=document.createElement("td");
+      td3.innerText=element.role;
+      let td4=document.createElement("td");
+      td4.innerText=element.salary;
+      let td5=document.createElement("td");
+      td5.innerText="Bookmark";
+      td5.classList="bookmark"
+      let td6=document.createElement("td")
+      td6.innerText="Delete"
+      td6.classList="delete"
+      td6.addEventListener('click',()=>{
+        tr.remove()
+      })
+      td5.addEventListener("click",()=>{
+        let bookmark=JSON.parse(localStorage.getItem("bookmark"));
+        if(bookmark==null){
+          bookmark=[];
+          
+        }
+        bookmark.push(element);
+        alert("Added to Bookmarks")
+        localStorage.setItem("bookmark",JSON.stringify(bookmark));
+      })
+      tr.append(td1,td2,td3,td4,td5,td6);
+      tbody.append(tr);
+    });
+    
+  </script>
+</html>
+<!-- let bookmark=JSON.parse(localStorage.getItem("bookmark")) || []
+       
+        bookmark.push(element);
+        localStorage.setItem("bookmark",JSON.stringify(bookmark));
+      })
+      tr.append(td1,td2,td3,td4,td5);
+      tbody.append(tr); -->
